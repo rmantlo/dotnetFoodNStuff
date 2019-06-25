@@ -11,8 +11,10 @@ namespace FoodNStuff.MVC.Models
         [Key]
         public int ProductID { get; set; }
         [Required]
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         [Required]
+        [Display(Name = "Inventory Count")]
         public int InventoryCount { get; set; }
         [Required]
         public decimal Price { get; set; }
