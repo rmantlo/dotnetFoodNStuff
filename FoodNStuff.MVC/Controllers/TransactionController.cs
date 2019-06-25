@@ -1,6 +1,7 @@
 ﻿using FoodNStuff.MVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -55,7 +56,35 @@ namespace FoodNStuff.MVC.Controllers
 
 
         //get: edit/{id}
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.CustomerID = new SelectList(_db.Customers.ToList(), "CustomerID", "FullName");
+            ViewBag.ProductID = new SelectList(_db.Products.ToList(), "ProductID", "ProductName");
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Transaction transaction = _db.Transactions.Find(id);
+            if (transaction == null)
+                HttpNotFound();
+            return View(transaction);
+        }
         //Post: edit/{id}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Transaction transaction)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(transaction).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CustomerID = new SelectList(_db.Customers.ToList(), "CustomerID", "FullName");
+            ViewBag.ProductID = new SelectList(_db.Products.ToList(), "ProductID", "ProductName");
+
+            return View(transaction);
+        }
+
 
         //get: delete/{id}
         public ActionResult Delete(int? id)

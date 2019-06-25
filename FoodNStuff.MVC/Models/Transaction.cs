@@ -19,5 +19,15 @@ namespace FoodNStuff.MVC.Models
         [ForeignKey(nameof(Product))] //better incase things need to be renamed
         public int ProductID { get; set; }
         public virtual Product Product { get; set; }
+        //public decimal TotalCost
+        //{
+        //    get
+        //    {
+        //        foreach (var product in Product)
+        //        {
+
+        //        }
+        //    }
+        //}
     }
 }
