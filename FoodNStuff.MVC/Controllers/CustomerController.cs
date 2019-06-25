@@ -18,9 +18,17 @@ namespace FoodNStuff.MVC.Controllers
         {
             return View(_db.Customers.ToList());
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Customer customer = _db.Customers.Find(id);
+            if (customer == null)
+            {
+                HttpNotFound();
+            }
             return View(customer);
         }
 

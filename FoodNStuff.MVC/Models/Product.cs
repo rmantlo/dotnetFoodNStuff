@@ -14,7 +14,7 @@ namespace FoodNStuff.MVC.Models
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         [Required]
-        [Display(Name = "Inventory Count")]
+        [Display(Name = "# in Stock")]
         public int InventoryCount { get; set; }
         [Required]
         public decimal Price { get; set; }
